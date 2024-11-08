@@ -1,0 +1,23 @@
+M = 16; 
+data = randi([0 M-1], 1000, 1); 
+txSig = pskmod(data, M, pi/M); 
+rxSig = awgn(txSig, 50); 
+% Plotting with scatter function for custom colors 
+figure; 
+scatter(real(rxSig), imag(rxSig), 5, 'r*'); % Red color with asterisks 
+title('Scatter Plot of Received PSK Signal'); 
+xlabel('In-phase'); 
+ylabel('Quadrature'); 
+
+
+% Parameters 
+M = 8; 
+data = randi([0 M-1], 1000, 1); 
+txSig = pskmod(data, M, pi/M); 
+rxSig = awgn(txSig, 40); 
+% Plotting with scatter function for custom colors 
+figure; 
+scatter(real(rxSig), imag(rxSig), 5, 'r*'); % Red color with asterisks 
+title('Scatter Plot of Received PSK Signal'); 
+xlabel('In-phase'); 
+ylabel('Quadrature'); 
