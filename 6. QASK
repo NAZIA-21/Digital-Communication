@@ -1,0 +1,42 @@
+clc;
+clear all;
+close all;
+
+% Input prompt for modulation choice
+choice = input('Enter : 1.BPSK , 2.QPSK , 3.MSK , 4.16-QAM , 5.MPSK , 6.MFSK : ');
+SNR = 25; % Signal-to-Noise Ratio (in linear scale)
+
+% Set parameters for specific modulations
+M = 16;  % Default for 16-QAM and MFSK
+pe = 0;  % Initialize probability of error
+
+% Probability of Error Calculation based on chosen modulation scheme
+switch choice
+    case 1 % BPSK
+        pe = 0.5 * erfc(sqrt(SNR));
+        
+    case 2 % QPSK
+        pe = 0.5 * erfc(sqrt(SNR / 2)); % Adjusted for QPSK
+        
+    case 3 % MSK
+        pe = 0.5 * erfc(sqrt(SNR / 2)); % Similar to QPSK in error probability
+        
+    case 4 % 16-QAM
+        pe = 3 / 8 * erfc(sqrt(SNR / 10)); % Approximation for 16-QAM
+        
+    case 5 % MPSK (with M=16 as an example)
+        M = 16; % Example for M=16 PSK
+        pe = erfc(sqrt(SNR) * sin(pi / M));
+        
+    case 6 % MFSK (with M=16 as an example)
+        N = log2(M); % Bits per symbol
+        %% 
+        pe = 0.5 * erfc(sqrt(N * SNR) * sin(pi / M));
+        
+    otherwise
+        disp('Invalid choice');
+end
+
+% Display the computed Probability of Error
+Error_Probability = pe;
+disp(['Probability of Error: ', num2str(Error_Probability)]);
